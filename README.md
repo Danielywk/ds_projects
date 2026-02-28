@@ -2,5 +2,4 @@
 
 # Cluster de K-Means de sismos
 
-https://github.com/Danielywk/ds_projects/blob/master/reports/kmeans_sismos.html
-
+[Ver Reporte Interactivo de Sismos](https://danielywk.github.io/ds_projects/reports/kmeans_sismos.html)
