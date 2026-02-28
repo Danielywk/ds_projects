@@ -1,0 +1,306 @@
+---
+title: "Plantilla para limpieza de datos"
+output: html_notebook
+---
+
+# Para un archivo knit, NUNCA DE BEBE INCLUIR "install.packages("paquete") porque causa errores. También se debe ubicar en la misma carpeta los datasets
+
+# Cargar comando en la consola R desde la terminal
+# para instalar cualquier libreria adicional debido a fallos de CRAN
+```{r}
+options(repos = c(CRAN = "https://cloud.r-project.org/"))
+
+if(!require(library)) install.packages("library")
+```
+
+# Carga de librerias
+# tidyverse: Librería principal para el análisis de datos, carga automáticamente 8 packetes
+# ggplot2, tibble, tidyr, readr, purr, dplyr, stringr y forcats
+# skimr: Librería para visualización de datos
+# janitor: Libreria para limpiez de datos
+# dplyr: Libreriá que contiene métodos y funciones para análisis estadístico; select() filter() arrange()``mutate() summarize().
+```{r libraries}
+library(tidyverse)
+library(dplyr)
+library(janitor)
+```
+
+# Establecer el directorio de trabajo
+```{r workspace}
+setwd("~/ruta/completa")
+# Verificar ruta
+getwd()
+```
+
+# Carga de conjuntos de datos o creación de marcos de trabajo
+```{r opendata}
+dataset <- read.csv("ruta/dataset.csv")
+
+# Utilizar el siguiente comando en caso de problemas con la codificación de carácteres
+dataset <- read.csv("ruta/dataset.csv", fileEncoding = "ISO-8859-1") # --> En caso de error, cambiar a cod. uff-8
+
+# Utilizar este comando en caso de que los datos no se visualicen correctamente (problemas con los delimitadores: ";", ",")
+dataset <- read.csv("ruta/dataset.csv", sep = ";")
+
+str()
+head()
+glimpse()
+```
+
+# Ejemplo: Creando un dataset
+# NOTA: No usar en caso de contar con archivo .csv o .xlsx
+```{r creating a dataset}
+id <- c(1:3)
+
+name <- c("John Mendes", "Rob Stewart", "Rachel Abrahamson")
+job_title <- c("Professional", "Programmer", "Management")
+
+employee <- data.frame(id, name, job_title)
+tibble(employee)
+```
+
+
+# Aplicar omenclatura y corregir los nombres de las columnas (variables)
+```{r}
+clean_names(dataset)
+```
+
+# Verificar cambios
+```{r}
+colnames()
+```
+
+
+
+
+# Comandos útiles: Manipulación y graficación
+# ----------------------------------------------------------------------
+```{r comandos 01}
+# Revisar la estrucrura de los datos en un conjunto de datos
+str(dataset)
+
+# Mostrar un conjunto de datos con head (muestra solo las primeras 5 filas)
+head(dataset)
+
+# Permite ver las últimas filas. Tiene la misma sintaxis que head()
+tail()
+
+# Permite ver la dimensión de la base de datos,
+dim()
+
+# Mostrar un conjunto de datos (alternativa - ancho de ventana)
+tibble(dataset)
+
+# Mostrar un conjunto de datos (alternatva): Realiza un conteo de filas y columnas
+glimpse(dataset)
+
+# Renombar el nombre de una columna de un dataset
+rename(dataset_name, new_column_name = column_name)
+
+# Para renombar más de una columna de un dataset
+rename(dataset_name, new_column_name = column_name, new_column_name_2 = column_name_2)
+
+# Corrige y asigna una nomeclatura adecuada para el nombre de las columnas (elimina espacios y carácteres no adcudados)
+clean_names(dataset)
+
+dataset %>%
+  # Ordena los datos en la columna
+  arrange(column_name) %>%
+  # Ordena en ordén descendente
+  arrange(-column_name)
+
+# Agrupar los datos de una columna, oculta o no cuenta las filas con NA
+# y obtiene un promedio
+
+dataset %>%
+  group_by(column_name) %>%
+  drop_na() %>%
+  summarise(new_column_name = mean(column_name)) # --> mean() obtiene el promedio o la media de una columna de datos
+
+```
+
+
+
+# ----------------------------------------------------------------------
+# Proceso de Limpieza de Datos
+
+# Removiendo <NA>
+```{r}
+# Teniendo un conjunto de datos
+df <- data.frame(
+  Name = c("Alice", "Bob", NA, "Diana"),
+  Age = c(25, 30, 35, NA),
+  Score = c(90, NA, 88, 95),
+  Gender = c("F", "M", NA, "F")
+)
+
+# Resultado:
+#     Name Age Score Gender
+# 1  Alice  25    90      F
+# 2    Bob  30    NA      M
+# 3   <NA>  35    88   <NA>
+# 4  Diana  NA    95      F
+
+```
+
+# Removiendo filas con NA por columna
+```{r}
+# Eliminando filas con NA por una columna en particular: Age
+df <- df %>% filter(!is.na(Age))
+df
+
+# Resultado:
+#     Name Age Score Gender
+# 1  Alice  25    90      F
+# 2    Bob  30    NA      M
+# 3   <NA>  35    88   <NA>
+```
+
+# Por fila
+```{r}
+
+```
+
+# Imputando por cualquier valor
+```{r}
+# Imputación por cero "0"
+dataset <- dataset %>%
+  mutate(across(everything(), ~replace_na(.x, 0))) # Rellenar todo el dataset NA con 0
+
+View(dataset)
+# across(everything(), ...): Esto se aplica a todas las columnas de tu dataframe.
+# replace_na(.x, mean(.x, na.rm = TRUE)): Para cada columna, reemplaza los valores NA por el promedio de esa columna.
+# El parámetro na.rm = TRUE asegura que los "NA" NO SEAN TOMADOS en cuenta al calcular el promedio.
+```
+
+
+# ----------------------------------------------------------------------
+# Convertir datos de formarto largo a formato ancho
+# Formato largo: Los datos en formato largo tienen todas las observaciones en una sola columna, y las variables en columnas separadas.
+# Formato ancho: Tiene observaciones en varias columnas. Cada columna contiene datos de una condición diferente de la variable.
+# ¿Cuándo utilizar el formato largo y el formato ancho?
+# El formato ancho se utiliza cuando se crean tablas y gráficos con pocas variables sobre cada tema. Se comparan gráficos lineales sencillos
+# El formato largo se utiliza cuando se trabajan con datos de gran escala y se requieren varias variables para cada tema. Se analizan gráficos
+# y estadíticos avanzados
+```{r}
+# Trabajando con el dataset de pingüinos
+library(palmerpenguins)
+# Tenemos que
+df_penguins <- penguins
+head(penguins)
+```
+
+```{r}
+# El dataset de pinguinos está en formato largo
+# Pasando el dataset de pingüinos de formato largo a formato ancho
+# Para este ejemplo ocuparemos solo 4 columnas o variables. (species, island y bill_length_mm)
+df_penguins <- df_penguins %>%
+  select(species, island, bill_length_mm)
+
+# Rellenamos las columnas con NA con 0
+df_penguins <- df_penguins %>%
+  mutate(across(everything(), ~replace_na(.x, 0))) # Rellenar todo el dataset NA con 0
+
+head(df_penguins)
+```
+
+```{r}
+# Ahora generamos 2 columnas, una que obtiene el promedio del pico de cada especie por isla
+# Y otra que realiza el conteo de muestras por especie e isla
+
+# Agrupar y resumir por species e island
+df_penguins <- df_penguins %>%
+  group_by(species, island) %>%                                # Agrupa por species e island
+  summarize(
+    mean_bill_length = mean(bill_length_mm, na.rm = TRUE),     # Calcula el promedio del tamaño del pico, ignora los NA
+    sample_count = n(),                                        # Cuenta el número de muestras
+    .groups = "drop"                                           # Desagrupa al finalizar
+  )
+
+# Convertir a formato ancho para ambos valores
+df_penguins %>%
+  pivot_wider(
+    names_from = species,                                      # Usa species como columnas
+    values_from = c(mean_bill_length, sample_count),           # Incluye el promedio y el conteo como columnas
+    values_fill = 0                                            # Llena los valores ausentes con 0
+  )
+
+df_penguins
+```
+
+# ----------------------------------------------------------------------
+# Uniendo bases de datos: Utilizando Joins con dplyr
+# Creando un conjunto de datos muestra
+```{r Joins: Uniendo datos}
+x1 <- c("A", "B", "C")
+x2 <- c(1, 2, 3)
+x3 <- c("T", "F", "T")
+
+tableA <- data.frame(x1, x2)
+x1 <- c("A", "B", "D")
+
+tableB <- data.frame(x1, x3)
+
+tableB
+tableA
+
+```
+
+
+# Left_Join: Uniendo a la Izquierda (por defecto)
+# LEFT OUTER JOIN, pero la mayoría de los usuarios prefieren LEFT JOIN. Ambas opciones son sintaxis correcta.
+# LEFT JOIN devuelve todos los registros de la tabla izquierda y solo los registros coincidentes de la tabla derecha. Si no hay coincidencias, devuelve NULL.
+# Usa LEFT JOIN cuando necesites los datos de toda la primera tabla y los valores de la segunda tabla, si existen.
+
+
+```{r}
+left_join <- dplyr::left_join(tableA, tableB, by = "x1") # -> Une las filas que están en tablaB a la tablaA en base a la
+left_join                                                # columna en común "x1"
+                                # <------*
+```
+
+# Right_Join: Uniendo a la derecha
+# Quizás te aparezca como RIGHT OUTER JOIN o RIGHT JOIN
+# RIGHT JOIN devuelve todos los registros de la tabla derecha y solo los registros coincidentes de la tabla izquierda.
+# Usa RIGHT JOIN cuando necesites los datos de toda la segunda tabla y los valores de la primera tabla, si existen.
+# A nivel práctico, raras veces se usa RIGHT JOIN.
+```{r}
+right_join <- dplyr::right_join(tableA, tableB, by = "x1") # -> Une las filas que están en tablaA a la tablaB en base a la
+right_join                                               # columna "x1"
+                                  # *------>
+```
+
+# Inner_Join: Unir interno
+# INNER JOIN devuelve registros si los datos están dentro de ambas tablas. Si no hay coincidencias, devuelve NULL.
+```{r}
+inner_join <- dplyr::inner_join(tableA, tableB, by = "x1") # -> Une las filas en común en base a los registros coincidentes en x1
+inner_join
+```
+
+# Full_Join: Unión completa
+# Quizás a veces te aparezca como FULL JOIN. FULL OUTER JOIN devuelve todos los registros de las tablas especificadas.
+# Puedes combinar las tablas de esta manera, pero recuerda que como resultado puede ser potencialmente una gran extracción de datos. FULL OUTER JOIN devuelve todos los registros de ambas tablas aun si los datos no se rellenaron en una de las tablas.
+# Devuelve un valor NULL si los datos correspondientes no existen en ninguna de las tablas.
+```{r}
+full_join <- dplyr::full_join(tableA, tableB, by = "x1") # -> Conserva todos los valores y filas en ambos detaset.
+full_join
+```
+
+# ¿Qué pasa si las variables se llama diferente?
+# La sintaxis de by sería: by = c("variable1" = "variable2").
+# ¿Qué pasa si queremos unir por más de una variable?
+# La sintaxis de by sería: by = c("variable1", "variable2").
+
+
+
+# -----------------------------------------------------------
+# Visualización de datos: Gráficos básicos
+```{r comandos 02}
+# Para crear un diagrama de dispersión básico
+ggplot(data = dataset, aes(x = column_name, y = column_name)) +
+  geom_point()
+
+# Agregando el argumento color, que asigna un umbral de color en base a una clomna específica (como la edad)
+ggplot(data = dataset, aes(x = column_name, y = column_name), color = column_name) +
+  geom_point()
+```

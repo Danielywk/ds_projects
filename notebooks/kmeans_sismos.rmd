@@ -1,0 +1,124 @@
+---
+title: "Análisis de Clustering en Actividad Sísmica: México vs Japón"
+author: "Isaías Amado Carreño"
+---
+
+```{r}
+library(stats)
+library(dplyr)
+library(DChaos)
+library(ggplot2)
+```
+
+# Primero creamos un dataframe con el contenido de los csv
+```{r}
+sismosJ <- read.csv("sismos_japan.csv", header = TRUE)
+sismosM <- read.csv("sismos_mexico.csv", header = TRUE)
+```
+
+# Visualizando la datas
+```{r}
+glimpse(sismosJ)
+glimpse(sismosM)
+```
+
+```{r}
+sismos_mex <- sismosM %>%
+  select(depth, mag, latitude) %>%
+  mutate(pais = "Mexico")
+
+sismos_jap <- sismosJ %>%
+  select(depth, mag, latitude) %>%
+  mutate(pais = "Japon")
+
+sismos_totales <- rbind(sismos_mex, sismos_jap)
+head(sismos_totales, 50)
+
+# Seleccionamos solo variables numéricas
+datos <- sismos_totales[, c("depth", "mag", "latitude")]
+boxplot(datos)
+summary(sismos_totales)
+```
+
+## Transformando los datos con transformación logarítmica debido a que posee valores altos (no outliers porque si existen sismos a una profundidad de 350km de profundidad)
+## Normalizando con estandarización Z-Score antes de K-Means
+```{r}
+"
+# Escalamiento de daros
+datos_norm <- scale(datos)
+# Verificamos que la media sea cercana a ceri
+summary(datos)
+boxplot(datos)
+"
+
+# Dado que los daros presentan outliers, se cambia la dinámica aplicando transformación logarítmica
+
+# Paso 1: Transformación Logarítmica de la variable con outliers
+datos_transformados <- sismos_totales %>%
+  select(latitude, mag, depth) %>%
+  mutate(depth_log = log10(depth + 1)) %>% # Se suma 1 para evitar log(0) si hubiera profundidad 0
+  select(-depth) # Eliminamos la profundidad original para no duplicar la variable en el modelo
+# Paso 2: Normalización de todas las variables (media 0, varianza 1)
+# Ahora usamos latitude, mag y la nueva depth_log
+datos_norm <- scale(datos_transformados) # Escalamiento con Z-Score
+
+# Verificamos que las medias sean cercanas a 0 y revisamos los nuevos rangos
+summary(datos_norm)
+boxplot(datos_norm)
+```
+
+
+## Determinando número óptimo de clústeres
+
+```{r}
+# Usamos fviz_nbclust de factoextra
+# Busca minimizar la suma de cuadrados intra-cluster (WSS)
+library(factoextra)
+fviz_nbclust(datos_norm, kmeans, method = "wss") +
+  geom_vline(xintercept = 3, linetype = 2) +
+  labs(subtitle = "Método del Codo")
+```
+
+## Aplicando K-means en base al método del codo
+```{r}
+set.seed(123) # SEMILLA IMPORTANTE: Para reproducibilidad
+k_optimo <- 3
+cluster_final <- kmeans(datos_norm, centers = k_optimo, nstart = 25)
+
+# Añadimos la asignación de cluster al dataset original para interpretarlo luego
+sismos_totales$cluster <- as.factor(cluster_final$cluster)
+
+# Tabla de contingencia: ¿Cómo se dividen los países en los clusters?
+table(sismos_totales$pais, sismos_totales$cluster)
+```
+
+
+## Visualización
+```{r}
+fviz_cluster(cluster_final, data = datos_norm,
+             palette = c("#2E9FDF", "#00AFBB", "#E7B800"),
+             geom = "point",
+             ellipse.type = "convex",
+             ggtheme = theme_minimal(),
+             main = "Visualización de Clusters Sísmicos (Proyección PCA)"
+)
+
+# Este gráfico aplica PCA (análisis de componentes principales) dado que utilizamos 3 variables para agrupar (depth, mag, y latitude) tranformando estos datos a Dim (38.8%) y Dim (32.1%), la suma de Dim 1 y Dim 2 da como resultado 71% de la información original de los sismos, o sea el g´rafico 2D retiene el 71% de la información.
+```
+
+# Interpretando el PCA
+```{r}
+# Promedios reales por cluster para la interpretación final
+resumen_clusters <- sismos_totales %>%
+  group_by(cluster) %>%
+  summarise(
+    Latitud_Media = mean(latitude),
+    Magnitud_Media = mean(mag),
+    Profundidad_Media = mean(depth), # Usamos la original para entenderla en km
+    Cantidad_Sismos = n()
+  )
+
+print(resumen_clusters)
+```
+
+# Conclusión: En base a la representación gráfica de los clústeres, podemos afirmar que el clúster 2 (marcas o canales triángulares) agrupa los sismos con una profundidad alta con casi 66km de profundidad y una latitud de 37º correspondiente a Japón; casi de manera similar, el clúster 1 (puntos) muestra los sismos con una profundidad 11.5km, o sea, sismos superficiales, con una latitud de 33º, correpondientes de igual forma a Japón, y el último clúster agrupa sismos de profundidad intermedia de aproximadamente 41km y latitud de 16º, correspondientes a México.

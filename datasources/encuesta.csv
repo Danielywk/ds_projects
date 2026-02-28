@@ -1,0 +1,46 @@
+ID,Start time,Completion time,Email,Name,Selecciona tu género:,Coloca tu edad,¿Qué religión profesas?,"En situación de salud, si usted o alguien de su familia enferma. ¿En qué o quién/es usted deposita su fé para aliviar dicho padecimiento?","Si su respuesta fueron los santos, seleccione en cuál de ellos usted se encomienda (si su respuesta fue otra, omita este planteamiento): ","Por último, seleccione el municipio donde vive:"
+1,5/21/21 19:41:28,5/21/21 19:42:29,anonymous,,Masculino,20,Adventista,Dios (deidad única),,Ixtlahuaca
+2,5/21/21 19:42:39,5/21/21 19:43:16,anonymous,,Femenino,16,Católica,Santos,San Judas Tadeo;Niño de la salud;Virgen de Guadalupe;,Jocotitlán
+3,5/21/21 19:47:53,5/21/21 19:48:17,anonymous,,Femenino,26,Católica,Médicos,,Atlacomulco
+4,5/21/21 19:48:22,5/21/21 19:49:06,anonymous,,Masculino,36,Testigos de Jehova,Dios (deidad única),,Jocotitlán
+5,5/21/21 19:49:11,5/21/21 19:49:31,anonymous,,Femenino,20,Católica,Santos,San Judas Tadeo;San Antonio;Virgen de Guadalupe;,Jocotitlán
+6,5/21/21 19:50:55,5/21/21 19:51:27,anonymous,,Masculino,20,Católica,Médicos,,Ixtlahuaca
+7,5/21/21 19:51:34,5/21/21 19:52:12,anonymous,,Masculino,34,Testigos de Jehova,Dios (deidad única),,Temascalcingo
+8,5/21/21 21:05:43,5/21/21 21:07:27,anonymous,,Femenino,19 __,Católica,Santos,San Judas Tadeo;Virgen de Guadalupe;,Atlacomulco
+9,5/21/21 22:23:48,5/21/21 22:25:00,anonymous,,Femenino,21,Católica,Dios (deidad única),Virgen de Guadalupe;,Acambay
+10,5/21/21 22:28:47,5/21/21 22:29:42,anonymous,,Femenino,20,Católica,Dios (deidad única),,Timilpan 
+11,5/21/21 23:51:39,5/21/21 23:52:23,anonymous,,Femenino,20,Católica,Dios (deidad única),,Temascalcingo
+12,5/21/21 23:53:01,5/21/21 23:56:27,anonymous,,Masculino,24,Católica,Dios (deidad única),,Atlacomulco
+13,5/21/21 23:56:44,5/21/21 23:57:10,anonymous,,Femenino,24,Testigos de Jehova,Médicos,San Antonio;,Acambay
+14,5/21/21 23:58:03,5/21/21 23:58:38,anonymous,,Femenino,25,Pentecostes,Médicos;Tiempo;,,Atlacomulco
+15,5/21/21 23:58:45,5/21/21 23:59:18,anonymous,,Masculino,20,Agnóstico/a,Dios (deidad única);Nadie;,,Jocotitlán
+16,5/21/21 23:59:24,5/22/21 0:00:58,anonymous,,Masculino,24,Testigos de Jehova,Médicos;Dios (deidad única);,,San Felipe del Progreso
+17,5/22/21 0:01:04,5/22/21 0:01:35,anonymous,,Femenino,52,Adventista,Dios (deidad única);,,Ixtlahuaca
+18,5/22/21 0:01:44,5/22/21 0:02:54,anonymous,,Masculino,28,Pentecostes,Dios (deidad única);,Madre Teresa;,Acambay
+19,5/22/21 0:04:42,5/22/21 0:05:45,anonymous,,Femenino,19,Pentecostes,Nadie;,,San José del Rincon
+20,5/22/21 0:05:51,5/22/21 0:06:34,anonymous,,Masculino,28,Católica,Médicos;Santos;Dios (deidad única);Tiempo;,San Judas Tadeo;,Temascalcingo
+21,5/22/21 0:06:40,5/22/21 0:07:51,anonymous,,Masculino,25,Testigos de Jehova,Dios (deidad única);,,Ixtlahuaca
+22,5/22/21 0:12:34,5/22/21 0:13:13,anonymous,,Masculino,27,Luz del mundo,Médicos;Dios (deidad única);,,Ixtlahuaca
+23,5/22/21 0:13:25,5/22/21 0:14:13,anonymous,,Masculino,25,Agnóstico/a,Tiempo;,,Ixtlahuaca
+24,5/22/21 0:32:37,5/22/21 0:32:52,anonymous,,Femenino,20,Católica,Santos;Dios (deidad única);,San Judas Tadeo;Niño de la salud;Madre Teresa;Virgen de Guadalupe;,Acambay
+25,5/22/21 0:32:57,5/22/21 0:33:12,anonymous,,Masculino,25,Testigos de Jehova,Dios (deidad única);,Virgen de Guadalupe;,Jocotitlán
+26,5/22/21 0:33:25,5/22/21 0:33:50,anonymous,,Femenino,23,Testigos de Jehova,Dios (deidad única);Santos;,,Acambay
+27,5/22/21 0:33:55,5/22/21 0:34:12,anonymous,,Masculino,28,Luz del mundo,Santos;,San Judas Tadeo;,Aculco
+28,5/22/21 0:34:35,5/22/21 0:34:52,anonymous,,Masculino,23,Católica,Santos;Dios (deidad única);Tiempo;,San Antonio;Madre Teresa;Virgen de Guadalupe;,Atlacomulco
+29,5/22/21 0:34:57,5/22/21 0:35:12,anonymous,,Femenino,25,Testigos de Jehova,Dios (deidad única);,,Ixtlahuaca
+30,5/22/21 0:35:16,5/22/21 0:35:29,anonymous,,Femenino,34,Testigos de Jehova,Dios (deidad única);,,Aculco
+31,5/22/21 0:35:34,5/22/21 0:35:49,anonymous,,Masculino,27,Pentecostes,Dios (deidad única);,,Aculco
+32,5/22/21 9:32:03,5/22/21 9:32:49,anonymous,,Femenino,25,Católica,Dios (deidad única);Santos;,Niño de la salud;San Judas Tadeo;San Martín Caballero;,Temascalcingo
+33,5/22/21 11:19:56,5/22/21 11:20:22,anonymous,,Masculino,28,Testigos de Jehova,Dios (deidad única);Tiempo;,,San Felipe del Progreso
+34,5/22/21 13:18:09,5/22/21 13:18:28,anonymous,,Masculino,24,Pentecostes,Dios (deidad única);,,San José del Rincon
+35,5/22/21 13:18:38,5/22/21 13:18:58,anonymous,,Femenino,25,Católica,Santos;Médicos;Dios (deidad única);,San Judas Tadeo;San Antonio;Virgen de Guadalupe;,Atlacomulco
+36,5/22/21 13:19:04,5/22/21 13:19:26,anonymous,,Femenino,28,Testigos de Jehova,Santos;,San Antonio;San Martín Caballero;,Atlacomulco
+37,5/22/21 13:20:37,5/22/21 13:21:19,anonymous,,Femenino,24,Luz del mundo,Dios (deidad única);,,Aculco
+38,5/22/21 13:21:24,5/22/21 13:21:40,anonymous,,Femenino,25,Católica,Dios (deidad única);Santos;,San Judas Tadeo;Madre Teresa;San Antonio;Niño de la salud;,Jocotitlán
+39,5/22/21 13:21:46,5/22/21 13:22:08,anonymous,,Femenino,28,Testigos de Jehova,Médicos;Dios (deidad única);,,Atlacomulco
+40,5/22/21 13:22:12,5/22/21 13:22:43,anonymous,,Femenino,22,Católica,Dios (deidad única);,San Antonio;,Ixtlahuaca
+41,5/22/21 13:22:47,5/22/21 13:23:04,anonymous,,Masculino,25,Luz del mundo,Médicos;,Madre Teresa;Niño de la salud;,Temascalcingo
+42,5/22/21 13:23:09,5/22/21 13:23:36,anonymous,,Masculino,47,Agnóstico/a,Médicos;Tiempo;,,Temascalcingo
+43,5/22/21 13:24:34,5/22/21 13:24:57,anonymous,,Masculino,26,Luz del mundo,Dios (deidad única);Médicos;,,Atlacomulco
+44,5/22/21 13:25:02,5/22/21 13:26:49,anonymous,,Femenino,25,Ninguna,Tiempo;,,San Felipe del Progreso
+45,5/22/21 13:26:55,5/22/21 13:27:24,anonymous,,Femenino,26,Luz del mundo,Dios (deidad única);Médicos;Tiempo;,,Jocotitlán
