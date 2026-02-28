@@ -1,0 +1,46 @@
+# === ARCHIVOS DEL SISTEMA (OS) ===
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+ehthumbs.db
+
+# === CONFIGURACIÓN DE IDE (DataSpell / PyCharm / VS Code) ===
+.idea/
+.vscode/
+*.swp
+*.bak
+*.tmp
+
+# === PYTHON (Entornos virtuales y caché) ===
+venv/
+env/
+.env/
+bin/
+lib/
+include/
+pip-selfcheck.json
+__pycache__/
+*.py[cod]
+*$py.class
+.ipynb_checkpoints/
+
+# === R (Archivos temporales y de sesión) ===
+.Rhistory
+.RData
+.Ruserdata
+.Rapp.history
+.Rproj.user/
+*-Ex.R
+/conn/
+/lib/
+/share/
+server_log
+
+# === R MARKDOWN / KNIT (Archivos generados) ===
+# Descomenta las siguientes líneas si no quieres subir los resultados del Knit
+# *.html
+# *.pdf
+# *.docx
+# *_files/
+# *_cache/
